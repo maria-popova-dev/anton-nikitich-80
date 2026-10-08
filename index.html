@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Воспоминания к 80-летию</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --snow:#EEF2F5; --paper:#FFFFFF; --ink:#1B2A33; --taiga:#1F3B34; --amber:#C98A1B; --muted:#5B6B74;
+  --head:'Bitter','Georgia',serif; --body:'PT Sans','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:12px}
+body{margin:0;background:var(--snow);color:var(--ink);font-family:var(--body);font-size:20px;line-height:1.55}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+header{background:var(--taiga);color:#fff;padding:56px 0 48px}
+header h1{font-family:var(--head);font-weight:800;font-size:clamp(34px,9vw,56px);line-height:1.1;margin:0 0 14px}
+header p{margin:0;font-size:22px;color:#D5E0DC}
+.road{height:6px;margin:0;border:0;background:repeating-linear-gradient(90deg,var(--amber) 0 36px,transparent 36px 60px)}
+.intro{padding:32px 0 8px;color:var(--muted)}
+.memory{background:var(--paper);border-left:6px solid var(--taiga);padding:22px 22px 24px;margin:0 0 24px}
+.memory img{display:block;width:100%;height:auto;margin:0 0 16px}
+.memory blockquote{margin:0 0 14px;white-space:pre-line}
+.memory audio{width:100%;margin:0 0 14px}
+.who{font-family:var(--head);font-weight:600;font-size:19px;margin:0}
+.who span{font-family:var(--body);font-weight:400;color:var(--muted);font-size:17px}
+.life{margin:8px 0 40px;padding:0;list-style:none;border-left:6px dashed var(--amber);padding-left:22px}
+.life li{position:relative;margin:0 0 26px}
+.life li::before{content:"";position:absolute;left:-36px;top:9px;width:14px;height:14px;background:var(--taiga);border:3px solid var(--snow)}
+.life .yr{font-family:var(--head);font-weight:800;font-size:30px;line-height:1.1;margin:0 0 4px}
+.life p{margin:0 0 4px}
+h2{font-family:var(--head);font-weight:800;font-size:28px;margin:32px 0 18px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:0 0 40px}
+.gallery figure{margin:0;background:var(--paper);padding:8px}
+.gallery img{display:block;width:100%;height:auto}
+.gallery figcaption{font-size:16px;color:var(--muted);padding:6px 2px 0}
+.pdf{display:inline-block;margin:0 0 14px;padding:12px 18px;background:var(--taiga);color:#fff;text-decoration:none;font-weight:700}
+.memory a img{cursor:zoom-in}
+footer{padding:24px 0 56px;color:var(--muted);font-size:17px}
+@media (prefers-color-scheme:dark){
+  :root{--snow:#14201D;--paper:#1D2D29;--ink:#E8EEEC;--muted:#A3B3AE}
+  .memory{border-left-color:var(--amber)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Воспоминания об Антоне Никитиче Николаеве</h1>
+    <p>К 80-летию, 10 октября</p>
+  </div>
+</header>
+<hr class="road">
+
+<main class="wrap">
+  <p class="intro">Здесь собраны слова и фотографии тех, кто знает и любит Антона Никитича. Листайте вниз.</p>
+  <h2>Жизненный путь</h2>
+  <ol class="life" id="life"></ol>
+  <div id="about"></div>
+  <div id="galleries"></div>
+  <h2>Воспоминания</h2>
+  <div id="list"></div>
+</main>
+
+<footer class="wrap">С любовью, семья</footer>
+
+<script>
+/* ===== РЕДАКТИРУЙТЕ ТОЛЬКО ЭТОТ СПИСОК =====
+   author: кто написал
+   role:   кем приходится / откуда знает (можно оставить пустым "")
+   text:   текст воспоминания (пустую строку между абзацами можно ставить через \n\n)
+   photo:  путь к фото или скану воспоминания, например "img/1.jpg" (или "" если нет)
+           Если воспоминание на якутском или в виде фото письма, оставьте text пустым "" и вставьте только photo.
+   pdf:    путь к PDF, например "pdf/1.pdf" (или ""). Появится кнопка «Открыть PDF».
+   audio:  путь к голосовому, например "audio/1.mp3" (или "" если нет)
+   Фото сжимайте до ~1200 px по ширине, голосовые лучше в mp3. */
+/* Группы фотографий. Группы без src не показываются.
+   Для фото из интернета лучше писать в подписи «иллюстрация», чтобы было ясно, что это не из семейного архива. */
+const PHOTO_GROUPS = [
+  { title: "Молодые годы", items: [
+    { src: "img/lidiya_photo_two_boys.jpg", caption: "Антон (слева) с братом, детство" },
+    { src: "img/lidiya_photo_young_boy.jpg", caption: "Антон в молодости" }
+  ]},
+  { title: "Семья", items: [
+    { src: "img/svadba_roditeley.jpg", caption: "Свадьба Антона и Галины" },
+    { src: "img/semya_elka.jpg", caption: "Антон и Галина с тремя детьми" },
+    { src: "img/lidiya_photo_family.jpg", caption: "С любимой женой Галиной, её сестрой Акулиной Гаврильевной и сыном Николаем" }
+  ]},
+  { title: "Охота и рыбалка, с. Вилючан", items: [
+    { src: "img/hunt_1_pike_catch.jpg", caption: "Улов — щуки на Вилюе" },
+    { src: "img/hunt_2_night_fishing.jpg", caption: "Ночная рыбалка" },
+    { src: "img/hunt_3_boat.jpg", caption: "С лодкой на Вилюе" },
+    { src: "img/hunt_4_rifle_shore.jpg", caption: "На охоте, на берегу" },
+    { src: "img/hunt_5_sunset.jpg", caption: "Закат над Вилюем" },
+    { src: "img/hunt_6_river_cliffs.jpg", caption: "Берега Вилюя" },
+    { src: "img/hunt_7_duck.jpg", caption: "С охоты — утка" },
+    { src: "img/hunt_8_moose_with_friend.jpg", caption: "С братом Анатолием Кириллиным — после охоты на лося" }
+  ]},
+  { title: "Путешествия", items: [
+    { src: "img/sanya_peking_duck.jpg", caption: "Санья, Хайнань — за пекинской уткой" }
+  ]}
+];
+
+const MEMORIES = [
+  {
+    author: "Петров Александр Иннокентьевич",
+    role: "",
+    text: "",
+    photo: "img/petrov_portrait.jpg", pdf: "pdf/petrov.pdf", audio: ""
+  },
+  {
+    author: "Иванов Меркурий Михайлович",
+    role: "",
+    text: "",
+    photo: "", pdf: "pdf/ivanov.pdf", audio: ""
+  },
+  {
+    author: "Саввинова Розалия Степановна",
+    role: "Сунтаар, 2026",
+    text: "",
+    photo: "", pdf: "pdf/savvinova.pdf", audio: ""
+  },
+  {
+    author: "Глухарев Анатолий Никитич",
+    role: "",
+    text: "Мин Антон Никитиһи оҕо эрдэхпиттэн Бүлүчээҥҥэ кэлиэҕиттэн билэбин. Оскуоланы бүтэрбит сайыммар отделение саламтата мех звенооҕа оттуу бараҕын диэн МТЗю 80наах тракторы туттарбыттара эргэрэн  трактор этэ. Звеновоппыт Антон Никитич этэ. Ол сайын тракторы билбэт киһини кырдьаҕас трактористар сүбэлээн, үөрэтэн син дьонтон итэҕэһэ суох трактористаан, оттоон аһара бэркэ үлэлээбитим. Бастакы бииргэ Антон Никитистиин үлэлээн алтыспыт кэмим этэ. Биир сайын хортуоскаҕа, хаппыыстаҕа уу ыстанан үүннэрбиппит. Сайын сиилэс бэлэмигэр, суол оноруутугар элбэхтэ бииргэ үлэлээбиппит Антон тракторынан мин массыынаннан. Антон күһүн аайы ыраах сиринэн киистии тайахтыы барааччы байанайыттан мэлдьи илии тутуурдаах буолааччы. Антон төрөөбүт дойдута Куокуну, Галина Гаврильевналыын ыал буолуоҕуттан Бүлүчээни иккис дойду гынан билиҥҥэ дыла сайын аайы Галинатын кытта кэлэн сир астаан, балыктаан, бултаан ыкса күһүн куораттыыллар. Антон элбэх саҥата суох ылыннарыылаах тыллаах дьоһун мааны киһи. Өссө да уһун сылларга дойдуларыгар кэлэн Бүлүү биэрэгэр, ыскамыайкаларыгар сэргэстэһэн олоруохтарын баҕарабын.",
+    photo: "", pdf: "", audio: ""
+  },
+  {
+    author: "Глухарева Александра Никитична",
+    role: "22.09.2026",
+    text: "Улэгэ бэриниилээх буолуу утуе холобура.\n\nБиһиги төрөппүттэрбит, эбэлэрбит, эһэлэрбит бастаан холхуос, онтон совхоз саҕаттан үлэни өрө туппут, туруу үлэһит дьон этилэр. Куруук үлэлэригэр сарсыардаттан киэһээрэ диэри, өссө өрөбүллэригэр уопсай субуотунньуктарга туох да төлөбүрэ суох үлэлииллэрэ.\n\nМин, Антон Никитиһи кытары үөрэхпин бүтэрэн кэлэн, \"Бүлүүчээн\" совхозка бухгалтерынан үлэлиир кэммэр үксүн алтыспытым.\n\nСуоппар идэтэ диэн — күүстээх санаалаах, тулуурдаах уонна бэйэтин үлэтигэр муҥура суох бэриниилээх эрэ дьон талар идэлэрэ. Антон Никитич ол кэмнэргэ совхозка бензовозка үксүн суоппардыыра. Олус эппиэтинэстээх үлэ, нэдиэлэҕэ хаста да Сунтаартан бензин, араас таһаҕас таһара.\n\nАнтон Никитич олоххо олорор уһун айана — үлэҕэ бэриниилээх буолуу үтүө холобура. Ол иһин биһиги кинини, биир дойдулаахтара, өрүү убаастыыбыт, үрдүктүк сыаналыыбыт.\n\nАлександра Глухарева.\n22.09.2026сыл.",
+    photo: "", pdf: "", audio: ""
+  },
+  {
+    author: "Егоров Анатолий Александрович",
+    role: "",
+    text: "",
+    photo: "", pdf: "pdf/egorov.pdf", audio: ""
+  },
+  {
+    author: "Павлова Любовь Ивановна",
+    role: "Сунтаар, 2026",
+    text: "",
+    photo: "", pdf: "pdf/pavlova.pdf", audio: ""
+  },
+  {
+    author: "Кириллин Александр Егорович",
+    role: "",
+    text: "",
+    photo: "img/kirillin_1.jpg", pdf: "", audio: ""
+  },
+  {
+    author: "Николаева Лидия Никитична",
+    role: "сестра",
+    text: "",
+    photo: "img/lidiya_letter.jpg", pdf: "", audio: ""
+  }
+];
+
+const galleries = document.getElementById('galleries');
+PHOTO_GROUPS.forEach(g => {
+  const items = g.items.filter(p => p.src);
+  if (!items.length) return;
+  const h = document.createElement('h2'); h.textContent = g.title;
+  const box = document.createElement('div'); box.className = 'gallery';
+  items.forEach(p => {
+    const f = document.createElement('figure');
+    const a = document.createElement('a'); a.href = p.src; a.target = '_blank';
+    const i = document.createElement('img'); i.src = p.src; i.alt = p.caption || 'Фото'; i.loading = 'lazy';
+    a.appendChild(i); f.appendChild(a);
+    if (p.caption) { const c = document.createElement('figcaption'); c.textContent = p.caption; f.appendChild(c); }
+    box.appendChild(f);
+  });
+  galleries.appendChild(h); galleries.appendChild(box);
+});
+
+const LIFE = [
+  {y:"1946", t:["Родился 26 сентября в селе Куокуну в семье колхозников Марии и Никиты Николаевых. Отец, Никита, был фронтовиком и защищал Ленинград. Антон стал старшим из восьми детей."]},
+  {y:"1953", t:["В семь лет уже помогал по хозяйству и работал на сенокосе."]},
+  {y:"1967", t:["После школы стал трактористом в совхозах сёл Тойбохой и Крестях."]},
+  {y:"1971", t:["В санатории в Эльгяе встретил Галину Гаврильевну. Музыкант Антон обаял её, и так началась история длиной в полвека."]},
+  {y:"1972", t:["13 апреля сыграли свадьбу в селе Хордогой. Семья осталась жить на родине Галины Гаврильевны.","Работал трактористом, затем дизелистом: обеспечивал село электричеством, пока не заработала Вилюйская ГЭС."]},
+  {y:"1973", t:["Родился первенец Николай."]},
+  {y:"1975", t:["Родилась дочь Варвара."]},
+  {y:"1977", t:["Родилась дочь Мария. Ему присвоена квалификация тракториста II класса.","Построили первый в деревне дом из бруса. Шифера не хватало, и семья перезимовала с наполовину покрытой крышей."]},
+  {y:"1983", t:["Родился младший сын Александр."]},
+  {y:"1984", t:["Стал водителем бензовоза и сам пригнал машину из далёкого Оленёкского района. Возил бензин из райцентра в Хордогой по бездорожью: в один конец около шести часов."]},
+  {y:"1993", t:["После ликвидации совхоза работал водителем, а в мае стал механиком."]},
+  {y:"2000-е", t:["Переехали в город. Каждое лето вдвоём ездят на машине на малую родину, в Хордогой."]},
+  {y:"2011", t:["Первая поездка за границу, в Турцию. Потом были Таиланд и Грозный."]}
+];
+
+const ABOUT = [
+  {t:"Увлечения", p:"Охота и рыбалка. Играет на мандолине и гармошке. В молодости занимался боксом. Сегодня каждый день проходит не меньше четырёх километров со скандинавскими палками."},
+  {t:"Семья", p:"Рядом уже больше пятидесяти лет Галина Гаврильевна, школьный библиотекарь из Хордогоя. Четверо детей, внуки и правнучка. Как говорят в семье, все дети пошли по стопам отца и водят машины."}
+];
+const about = document.getElementById('about');
+ABOUT.forEach(x => {
+  const h = document.createElement('h2'); h.textContent = x.t;
+  const p = document.createElement('p'); p.textContent = x.p;
+  about.appendChild(h); about.appendChild(p);
+});
+
+const life = document.getElementById('life');
+LIFE.forEach(e => {
+  const li = document.createElement('li');
+  const y = document.createElement('p'); y.className = 'yr'; y.textContent = e.y;
+  li.appendChild(y);
+  e.t.forEach(x => { const p = document.createElement('p'); p.textContent = x; li.appendChild(p); });
+  life.appendChild(li);
+});
+
+const list = document.getElementById('list');
+MEMORIES.forEach(m => {
+  const el = document.createElement('article');
+  el.className = 'memory';
+  if (m.photo) {
+    const img = document.createElement('img');
+    img.src = m.photo; img.alt = 'Воспоминание от ' + m.author; img.loading = 'lazy';
+    const link = document.createElement('a'); link.href = m.photo; link.target = '_blank';
+    link.appendChild(img); el.appendChild(link);
+  }
+  if (m.text) {
+    const q = document.createElement('blockquote');
+    q.textContent = m.text;
+    el.appendChild(q);
+  }
+  if (m.pdf) {
+    const d = document.createElement('a');
+    d.className = 'pdf'; d.href = m.pdf; d.target = '_blank'; d.textContent = 'Открыть PDF';
+    el.appendChild(d); el.appendChild(document.createElement('br'));
+  }
+  if (m.audio) {
+    const a = document.createElement('audio');
+    a.controls = true; a.preload = 'none'; a.src = m.audio;
+    el.appendChild(a);
+  }
+  const who = document.createElement('p');
+  who.className = 'who';
+  who.textContent = m.author;
+  if (m.role) {
+    const s = document.createElement('span');
+    s.textContent = ', ' + m.role;
+    who.appendChild(s);
+  }
+  el.appendChild(who);
+  list.appendChild(el);
+});
+</script>
+</body>
+</html>
