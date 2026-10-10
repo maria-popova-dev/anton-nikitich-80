@@ -70,7 +70,10 @@ footer{padding:24px 0 56px;color:var(--muted);font-size:17px}
   <div id="list"></div>
 </main>
 
-<footer class="wrap">С любовью, семья</footer>
+<footer class="wrap">
+  <p style="margin:0 0 8px">Больше фото и видео — в Telegram-канале, посвящённом юбилею Антона Никитича: <a href="https://t.me/+flU4wBqrTnNlMGNi" target="_blank" style="color:var(--taiga);font-weight:700">перейти в канал</a></p>
+  <p style="margin:0">С любовью, семья</p>
+</footer>
 
 <script>
 /* ===== РЕДАКТИРУЙТЕ ТОЛЬКО ЭТОТ СПИСОК =====
@@ -85,15 +88,44 @@ footer{padding:24px 0 56px;color:var(--muted);font-size:17px}
 /* Группы фотографий. Группы без src не показываются.
    Для фото из интернета лучше писать в подписи «иллюстрация», чтобы было ясно, что это не из семейного архива. */
 const PHOTO_GROUPS = [
+  { title: "Родители, братья и сёстры", items: [
+    { src: "img/roditeli_1_bolshaya_semya.jpg", caption: "Родители, братья и сёстры в родном доме", wide: true },
+    { src: "img/roditeli_2_elka.jpg", caption: "Семья у новогодней ёлки", wide: true },
+    { src: "img/roditeli_3_mat_s_synami.jpg", caption: "Мать с сыновьями" },
+    { src: "img/roditeli_4_s_vnukami.jpg", caption: "Родители Антона — Мария и Никита — с внуками Колей и Варей", wide: true }
+  ]},
   { title: "Молодые годы", items: [
-    { src: "img/lidiya_photo_two_boys.jpg", caption: "Антон (слева) с братом, детство" },
-    { src: "img/lidiya_photo_young_boy.jpg", caption: "Антон в молодости" }
+    { src: "img/lidiya_photo_two_boys.jpg", caption: "Антон в молодости" },
+    { src: "img/lidiya_photo_young_boy.jpg", caption: "Антон в молодости" },
+    { src: "img/young_1_remont_dvigatelya.jpg", caption: "На ремонте техники", wide: true },
+    { src: "img/young_2_shestero_na_brevne.jpg", caption: "С товарищами", wide: true },
+    { src: "img/young_4_chetvero_druzey.jpg", caption: "С друзьями молодости", wide: true },
+    { src: "img/young_5_dvoe_u_brevna.jpg", caption: "С товарищем", wide: true },
+    { src: "img/young_6_deti_u_doma.jpg", caption: "Село Куокуну", wide: true },
+    { src: "img/young_7_devushki_na_snegu.jpg", caption: "Молодёжь", wide: true },
+    { src: "img/young_8_na_motocikle.jpg", caption: "На мотоцикле", wide: true },
+    { src: "img/young_9_gruppa_zimoy.jpg", caption: "Молодёжь посёлка, зима", wide: true },
+    { src: "img/young_11_portret_u_reki.jpg", caption: "На реке", wide: true },
+    { src: "img/young_14_gruppa_s_fartukami.jpg", caption: "Школьные годы", wide: true },
+    { src: "img/young_10_troe_na_brevne.jpg", caption: "С друзьями" },
+    { src: "img/young_12_v_kostyume.jpg", caption: "В молодости" },
+    { src: "img/young_13_portret_krupnyi.jpg", caption: "Портрет" }
   ]},
   { title: "Семья", items: [
     { src: "img/svadba_roditeley.jpg", caption: "Свадьба Антона и Галины" },
+    { src: "img/svadba_krupnyi_plan.jpg", caption: "Антон и Галина в день свадьбы" },
+    { src: "img/semya_molodye_nikolaevy.jpg", caption: "Молодые Николаевы" },
     { src: "img/semya_elka.jpg", caption: "Антон и Галина с тремя детьми" },
+    { src: "img/semya_masha_sasha_deti.jpg", caption: "Дочка Маша и сын Саша" },
     { src: "img/lidiya_photo_family.jpg", caption: "С любимой женой Галиной, её сестрой Акулиной Гаврильевной и сыном Николаем" },
-    { src: "img/semya_akulina_deti.jpg", caption: "Дочери Варя и Маша, сын Саша и опора семьи — Акулина Гаврильевна" }
+    { src: "img/semya_akulina_deti.jpg", caption: "Дочери Варя и Маша, сын Саша и опора семьи — Акулина Гаврильевна" },
+    { src: "img/semya_s_varey.jpg", caption: "С дочкой Варей" },
+    { src: "img/young_3_s_lopatoy_v_pole.jpg", caption: "В поле", wide: true },
+    { src: "img/semya_segodnya.jpg", caption: "Антон Никитич и Галина Гаврильевна сегодня", wide: true }
+  ]},
+  { title: "Спорт", items: [
+    { src: "img/sport_1_boks_ring.jpg", caption: "На ринге" },
+    { src: "img/sport_2_boks_komanda.jpg", caption: "Боксёрская команда" }
   ]},
   { title: "Трудовой путь", items: [
     { src: "img/tech_1_gaz53.jpg", caption: "ГАЗ-53-бензовоз — на такой машине работал Антон Никитич (иллюстрация)" },
@@ -111,9 +143,11 @@ const PHOTO_GROUPS = [
     { src: "img/hunt_8_moose_with_friend.jpg", caption: "С Анатолием Кириллиным — после удачной охоты на лося" }
   ]},
   { title: "Путешествия", items: [
-    { src: "img/sanya_peking_duck.jpg", caption: "Санья, Хайнань — за пекинской уткой" }
+    { src: "img/sanya_peking_duck.jpg", caption: "Санья, Хайнань, 2025 год — за пекинской уткой" },
+    { src: "img/travel_china_harbin_2026.jpg", caption: "Китай, 2026 год — Харбин, Парк амурских тигров" }
   ]},
   { title: "Награды и общественная деятельность", items: [
+    { src: "img/award_11_lentochka_chempion.jpg", caption: "Лента «Чемпион тракторист», 1978 год", wide: true },
     { src: "img/award_1_deputat14.jpg", caption: "Депутатское удостоверение № 14, Вилючанский сельсовет" },
     { src: "img/award_2_selsovet_cover.jpg", caption: "Сельский Совет народных депутатов" },
     { src: "img/award_3_deputat22.jpg", caption: "Депутатское удостоверение № 22, XX созыв" },
@@ -123,7 +157,38 @@ const PHOTO_GROUPS = [
     { src: "img/award_5_mandat31.jpg", caption: "Мандат делегата конференции работников совхоза «Вилючанский»" },
     { src: "img/award_6_partbilet_cover.jpg", caption: "Партийный билет КПСС" },
     { src: "img/award_7_svarshik_dopusk.jpg", caption: "Удостоверение газоэлектросварщика, допуск к работе" },
-    { src: "img/award_8_narodny_control.jpg", caption: "Удостоверение группы народного контроля, совхоз «Вилючанский»" }
+    { src: "img/award_8_narodny_control.jpg", caption: "Удостоверение группы народного контроля, совхоз «Вилючанский»" },
+    { src: "img/award_12_notebook1.jpg", caption: "Рабочая тетрадь депутата — записи по технике" },
+    { src: "img/award_13_notebook2.jpg", caption: "Рабочая тетрадь депутата, 15 января 1982 г." },
+    { src: "img/award_14_notebook3.jpg", caption: "Рабочая тетрадь депутата — учёт техники" },
+    { src: "img/award_15_notebook4.jpg", caption: "Рабочая тетрадь депутата, 1981–1982 гг." },
+    { src: "img/award_16_notebook5.jpg", caption: "Рабочая тетрадь депутата — протоколы и обязательства" },
+    { src: "img/award_17_znak50let.jpg", caption: "Юбилейный знак и удостоверение к 50-летию совхоза «Тойбохойский», 2017 г.", wide: true },
+    { src: "img/award_18_pochetny_veteran_znak.jpg", caption: "Почётный знак «Почётный ветеран Сунтарского улуса»" },
+    { src: "img/award_19_pochetny_veteran_udost.jpg", caption: "Удостоверение к почётному знаку «Почётный ветеран Сунтарского улуса», 2024 г.", wide: true },
+    { src: "img/award_20_partiya_gramota1983.jpg", caption: "Почётная грамота за перевыполнение обязательств по заготовке сена, октябрь 1983 г." },
+    { src: "img/award_21_gramota_krestyah1975.jpg", caption: "Почётная грамота тракториста совхоза «Крестяхский», 1975 г." },
+    { src: "img/award_22_gramota1978_rukopis.jpg", caption: "Почётная грамота за высокие показатели в юбилейном 1977 году, 21.02.1978 г." },
+    { src: "img/award_23_gramota_cover_green.jpg", caption: "Почётная грамота" },
+    { src: "img/award_24_gramota50let1979.jpg", caption: "Почётная грамота в честь 50-летия I пятилетки, с. Крестях, 22 июня 1979 г." },
+    { src: "img/award_25_diplom_benzovoz1987.jpg", caption: "Диплом шофёру бензовоза за своевременную транспортировку ГСМ по итогам зимовки, 1987 г.", wide: true },
+    { src: "img/award_26_gramota_pobeditel1988.jpg", caption: "Грамота победителю внутрисовхозного соревнования по итогам III квартала 1988 года" },
+    { src: "img/award_27_leninskaya_gramota1980.jpg", caption: "Почётная Ленинская грамота за выполнение пятилетнего задания к 110-летию со дня рождения В. И. Ленина, 1980 г." },
+    { src: "img/award_28_cover_10pyatiletka.jpg", caption: "Почётная грамота, X пятилетка" },
+    { src: "img/award_29_gramota_1978okt.jpg", caption: "Почётная грамота за успехи в соревновании по досрочному выполнению планов третьего года десятой пятилетки, 6 октября 1978 г." },
+    { src: "img/award_30_cover_gerb.jpg", caption: "Почётная грамота" },
+    { src: "img/award_31_gramota_vybory1980.jpg", caption: "Почётная грамота за высокие показатели в соревновании в честь выборов в Верховные Советы РСФСР, ЯАССР и местные Советы народных депутатов, февраль 1980 г." },
+    { src: "img/award_32_cover_urozhay.jpg", caption: "Почётная грамота" },
+    { src: "img/award_33_gramota_1mesto1986.jpg", caption: "Почётная грамота за I место в соцсоревновании среди шофёров, с. Вилючан, 20 ноября 1986 г." },
+    { src: "img/award_34_diplom_3mesto1988.jpg", caption: "Диплом за III место в социалистическом соревновании по итогам 1987 года, с. Хордогой, январь 1988 г." },
+    { src: "img/award_35_gramota_subbotnik1979.jpg", caption: "Почётная грамота за высокие показатели на коммунистическом субботнике в честь 109-й годовщины со дня рождения В. И. Ленина, 24 апреля 1979 г." },
+    { src: "img/award_36_gramota_zimny1986.jpg", caption: "Почётная грамота за перевыполнение планов и своевременную транспортировку грузов в зимний период, с. Вилючан, июль 1986 г." },
+    { src: "img/award_37_gramota_suntar_raikom.jpg", caption: "Почётная грамота Сунтарского райкома КПСС за успехи в соцсоревновании в третьем году X пятилетки, 27 января, с. Сунтар" },
+    { src: "img/award_38_cover_molot.jpg", caption: "Почётная грамота" },
+    { src: "img/award_39_gramota_lenin_xi5let.jpg", caption: "Почётная грамота за активное участие в выполнении Продовольственной программы по итогам XI пятилетки" },
+    { src: "img/award_40_gramota_naslega2007.jpg", caption: "Грамота за добросовестный труд, большой вклад в развитие сельского хозяйства и активное участие в общественной жизни наслега, с. Вилючан, 13 октября 2007 г." },
+    { src: "img/award_41_gramota_1kv1977.jpg", caption: "Почётная грамота за высокие показатели по итогам первого квартала второго юбилейного года десятой пятилетки, 30 апреля 1977 г." },
+    { src: "img/award_42_gramota_gostehnadzor.jpg", caption: "Почётная грамота ветерану инженерно-технической службы совхоза «Вилючанский» в связи с 50-летием органов гостехнадзора России" }
   ]}
 ];
 
@@ -168,7 +233,7 @@ const MEMORIES = [
     author: "Павлова Любовь Ивановна",
     role: "Сунтаар, 2026",
     text: "",
-    photo: "", pdf: "pdf/pavlova.pdf", audio: ""
+    photo: "img/pavlova_portrait.jpg", pdf: "pdf/pavlova.pdf", audio: ""
   },
   {
     author: "Кириллин Александр Егорович",
@@ -177,10 +242,10 @@ const MEMORIES = [
     photo: "img/kirillin_1.jpg", pdf: "", audio: ""
   },
   {
-    author: "Николаева Лидия Никитична",
-    role: "сестра",
+    author: "Сёстры Лидия Никитична и Гульнара Никитична",
+    role: "",
     text: "",
-    photo: "img/lidiya_letter.jpg", pdf: "", audio: ""
+    photo: "img/lidiya_letter.jpg", photo2: "img/lidiya_s_antonom.jpg", pdf: "", audio: ""
   }
 ];
 
@@ -247,6 +312,13 @@ MEMORIES.forEach(m => {
     img.src = m.photo; img.alt = 'Воспоминание от ' + m.author; img.loading = 'lazy';
     const link = document.createElement('a'); link.href = m.photo; link.target = '_blank';
     link.appendChild(img); el.appendChild(link);
+  }
+  if (m.photo2) {
+    const img2 = document.createElement('img');
+    img2.src = m.photo2; img2.alt = 'Фото — ' + m.author; img2.loading = 'lazy';
+    img2.style.marginTop = '8px';
+    const link2 = document.createElement('a'); link2.href = m.photo2; link2.target = '_blank';
+    link2.appendChild(img2); el.appendChild(link2);
   }
   if (m.text) {
     const q = document.createElement('blockquote');
